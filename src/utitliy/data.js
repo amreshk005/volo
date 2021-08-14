@@ -1,34 +1,110 @@
-export const data = {
-    data: [{
-
-    name: 'Mixmax',
-    
-    budget_name: 'Software subscription',
-    
+export const data = [
+  {
+    name: "Mixmax",
+    budget_name: "Software subscription",
+    owner_name: "Vishal",
     owner_id: 1,
-    
     spent: {
-    
-    value: 100,
-    
-    currency: "SGD"
-    
+      value: "100",
+      currency: "SGD",
     },
-    
     available_to_spend: {
-    
-    value: 1000,
-    
-    currency: "SGD"
-    
+      value: "1000",
+      currency: "SGD",
     },
-    
     card_type: "burner",
-    
-    expiry: 9 feb,
-    
-    limit: 100,
-    
-    status: 'active'
-    
-    }], page: 1, per_page: 10, total: 100}
+    expiry: "February",
+    limit: "100",
+    status: "active",
+  },
+  {
+    name: "Quickbooks",
+    budget_name: "Software subscription",
+    owner_name: "Ravi",
+    owner_id: 1,
+    spent: {
+      value: "100",
+      currency: "SGD",
+    },
+    available_to_spend: {
+      value: "1000",
+      currency: "SGD",
+    },
+    card_type: "Subscription",
+    expiry: "August",
+    limit: "100",
+    status: "active",
+  },
+  {
+    name: "Motion",
+    budget_name: "Miscellaneous",
+    owner_name: "Vikash",
+    owner_id: 1,
+    spent: {
+      value: "100",
+      currency: "SGD",
+    },
+    available_to_spend: {
+      value: "1000",
+      currency: "SGD",
+    },
+    card_type: "Subscription",
+    expiry: "August",
+    limit: "100",
+    status: "blocked",
+  },
+  {
+    name: "Pandadoc",
+    budget_name: "Software subscription",
+    owner_name: "Akash",
+    owner_id: 4,
+    spent: {
+      value: "100",
+      currency: "SGD",
+    },
+    available_to_spend: {
+      value: "1000",
+      currency: "SGD",
+    },
+    card_type: "Subscription",
+    expiry: "August",
+    limit: "100",
+    status: "blocked",
+  },
+  {
+    name: "Xero",
+    budget_name: "Software subscription",
+    owner_name: "pintu",
+    owner_id: 5,
+    spent: {
+      value: "100",
+      currency: "SGD",
+    },
+    available_to_spend: {
+      value: "1000",
+      currency: "SGD",
+    },
+    card_type: "Subscription",
+    expiry: "August",
+    limit: "100",
+    status: "active",
+  },
+  {
+    name: "Mookambika",
+    budget_name: "Miscellaneous",
+    owner_name: "Chirag",
+    owner_id: 6,
+    spent: {
+      value: "100",
+      currency: "SGD",
+    },
+    available_to_spend: {
+      value: "1000",
+      currency: "SGD",
+    },
+    card_type: "Subscription",
+    expiry: "August",
+    limit: "100",
+    status: "blocked",
+  },
+];

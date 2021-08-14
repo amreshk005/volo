@@ -13,6 +13,8 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import { green } from "@material-ui/core/colors";
+import LoopIcon from "@material-ui/icons/Loop";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -62,37 +64,23 @@ const useStyles = makeStyles({
   },
 });
 
-function CardComponent() {
+function CardComponent(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const [checked, setChecked] = React.useState([1]);
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   return (
     <Grid container xs={12}>
-      {[1, 2].map((e) => (
+      {props.data.map((e) => (
         <Grid xs={6} className={classes.root}>
           <Card>
             <CardContent>
               <Grid container justifyContent="space-between">
                 <Grid>
                   <Typography variant="h5" component="h2">
-                    Mixmax
+                    {e.name}
                   </Typography>
                   <Typography className={classes.pos} color="textSecondary">
-                    adjective {bull} Software Subscription
+                    {e.owner_name} {bull} {e.budget_name}
                   </Typography>
                 </Grid>
                 <Grid className={classes.iconCover}>
@@ -100,25 +88,27 @@ function CardComponent() {
                 </Grid>
               </Grid>
               <Grid container justifyContent="space-between">
-                <Chip label="Burner" variant="outlined" />
+                <Chip label={e.card_type} variant="outlined" />
                 <Typography className={classes.pos} color="textSecondary">
-                  Expires: &nbsp;9 &nbsp;Feb
+                  {e.expiry}&nbsp; Limit: &nbsp;{e.limit}SGD
                 </Typography>
               </Grid>
               <BorderLinearProgress variant="determinate" value={50} />
               <List dense>
-                {[0, 1].map((value) => {
-                  const labelId = `checkbox-list-secondary-label-${value}`;
-                  return (
-                    <ListItem key={value} button>
-                      <ListItemAvatar>
-                        <FiberManualRecordIcon />
-                      </ListItemAvatar>
-                      <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                      <ListItemSecondaryAction>{value} SGD</ListItemSecondaryAction>
-                    </ListItem>
-                  );
-                })}
+                <ListItem button>
+                  <ListItemAvatar>
+                    <FiberManualRecordIcon color="secondary" />
+                  </ListItemAvatar>
+                  <ListItemText primary="Spent" />
+                  <ListItemSecondaryAction>0 SGD</ListItemSecondaryAction>
+                </ListItem>
+                <ListItem button>
+                  <ListItemAvatar>
+                    <FiberManualRecordIcon style={{ color: green[500] }} />
+                  </ListItemAvatar>
+                  <ListItemText primary="Available to spend" />
+                  <ListItemSecondaryAction>9 SGD</ListItemSecondaryAction>
+                </ListItem>
               </List>
             </CardContent>
           </Card>
