@@ -16,6 +16,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { alpha } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Popover from "./components/Popover";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,7 +83,15 @@ function Virtualcard() {
   const [blocked, setBlocked] = useState([]);
   const [OwnerId, setOwnerId] = useState([]);
   const [All, setAll] = useState([]);
+  const [smallblocked, setSmallBlocked] = useState([]);
+  const [smallOwnerId, setSmallOwnerId] = useState([]);
+  const [smallAll, setSmallAll] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [hasmore, setHasmore] = useState({
+    blocked: true,
+    OwnerId: true,
+    All: true,
+  });
   const [searchInput, setSearchInput] = useState("");
   const [dropdown, setDropdown] = useState([]);
 
@@ -101,11 +110,19 @@ function Virtualcard() {
     setBlocked(blocked);
     setOwnerId(ownerId);
     setAll(data);
+    setSmallOwnerId(ownerId.slice(0, ownerId.length / 2));
+    setSmallAll(data.slice(0, data.length / 2));
+    setSmallBlocked(ownerId.slice(0, ownerId.length / 2));
+    setHasmore({
+      blocked: true,
+      OwnerId: true,
+      All: true,
+    });
   };
   useEffect(() => {
     setInitialData();
     setDropdown([...new Set(data.map((e) => e.owner_name))]);
-  }, []);
+  }, [value]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -166,6 +183,20 @@ function Virtualcard() {
     setSearchInput(event.target.value);
     handleSearch(event.target.value, "input");
   };
+
+  const fetchMoreData = () => {
+    setTimeout(() => {
+      setSmallOwnerId(OwnerId);
+      setHasmore({
+        blocked: false,
+        OwnerId: false,
+        All: false,
+      });
+      setSmallAll(data);
+      setSmallBlocked(blocked);
+    }, 1500);
+  };
+
   return (
     <div className={classes.root}>
       <TabContext value={value}>
@@ -198,13 +229,19 @@ function Virtualcard() {
           </Button>
         </Grid>
         <TabPanel value="1">
-          <Card data={OwnerId} />
+          <InfiniteScroll dataLength={smallOwnerId.length} next={fetchMoreData} hasMore={hasmore.OwnerId} loader={<h4>Loading...</h4>}>
+            <Card data={smallOwnerId} />
+          </InfiniteScroll>
         </TabPanel>
         <TabPanel value="2">
-          <Card data={All} />
+          <InfiniteScroll dataLength={smallAll.length} next={fetchMoreData} hasMore={hasmore.All} loader={<h4>Loading...</h4>}>
+            <Card data={smallAll} />
+          </InfiniteScroll>
         </TabPanel>
         <TabPanel value="3">
-          <Card data={blocked} />
+          <InfiniteScroll dataLength={blocked.length} next={fetchMoreData} hasMore={hasmore.blocked} loader={<h4>Loading...</h4>}>
+            <Card data={smallblocked} />
+          </InfiniteScroll>
         </TabPanel>
       </TabContext>
     </div>
