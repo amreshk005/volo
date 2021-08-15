@@ -86,7 +86,6 @@ function Popovers(props) {
     let updatedData = { ...state, [event.target.name]: event.target.checked };
     setState(updatedData);
     props.handleSearch(updatedData, "checkbox");
-    console.log(event.target.name);
     setSelect("");
   };
 

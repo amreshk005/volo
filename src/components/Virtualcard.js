@@ -130,12 +130,10 @@ function Virtualcard() {
   };
 
   const handleSearch = (input, type) => {
-    console.log(input);
     if (input === "") {
       setInitialData();
     } else if (type === "input") {
       if (value === "1") {
-        console.log(searchInput);
         let owner_id = data.filter((e) => e.owner_id === 1 && e.name.toLowerCase().includes(input.toLowerCase()));
         setOwnerId(owner_id);
       } else if (value === "2") {
@@ -147,10 +145,8 @@ function Virtualcard() {
       }
     } else if (type === "checkbox") {
       let getChecked = Object.keys(input).filter((e) => input[e]);
-      console.log(getChecked);
       if (getChecked.length === 1) {
         if (value === "1") {
-          console.log(searchInput);
           let owner_id = data.filter((e) => e.owner_id === 1 && e.card_type.toLowerCase().includes(getChecked[0].toLowerCase()));
           setOwnerId(owner_id);
         } else if (value === "2") {
@@ -165,7 +161,6 @@ function Virtualcard() {
       }
     } else if (type === "dropdown") {
       if (value === "1") {
-        console.log(searchInput);
         let owner_id = data.filter((e) => e.owner_id === 1 && e.owner_name.toLowerCase().includes(input.toLowerCase()));
         setOwnerId(owner_id);
       } else if (value === "2") {
@@ -179,7 +174,6 @@ function Virtualcard() {
   };
 
   const handleInput = (event) => {
-    console.log(event.target.value);
     setSearchInput(event.target.value);
     handleSearch(event.target.value, "input");
   };
