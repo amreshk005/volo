@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { green } from "@material-ui/core/colors";
+import LoopIcon from "@material-ui/icons/Loop";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -80,9 +81,7 @@ function CardComponent(props) {
                     {e.owner_name} {bull} {e.budget_name}
                   </Typography>
                 </Grid>
-                <Grid className={classes.iconCover}>
-                  <WhatshotIcon color="secondary" />
-                </Grid>
+                <Grid className={classes.iconCover}>{e.card_type === "Burner" ? <WhatshotIcon color="secondary" /> : <LoopIcon color="secondary" />}</Grid>
               </Grid>
               <Grid container justifyContent="space-between">
                 <Chip label={e.card_type} variant="outlined" />

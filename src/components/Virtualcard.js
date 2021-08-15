@@ -84,6 +84,7 @@ function Virtualcard() {
   const [All, setAll] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchInput, setSearchInput] = useState("");
+  const [dropdown, setDropdown] = useState([]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -103,6 +104,7 @@ function Virtualcard() {
   };
   useEffect(() => {
     setInitialData();
+    setDropdown([...new Set(data.map((e) => e.owner_name))]);
   }, []);
 
   const handleChange = (event, newValue) => {
@@ -128,6 +130,7 @@ function Virtualcard() {
       }
     } else if (type === "checkbox") {
       let getChecked = Object.keys(input).filter((e) => input[e]);
+      console.log(getChecked);
       if (getChecked.length === 1) {
         if (value === "1") {
           console.log(searchInput);
@@ -142,6 +145,18 @@ function Virtualcard() {
         }
       } else {
         setInitialData();
+      }
+    } else if (type === "dropdown") {
+      if (value === "1") {
+        console.log(searchInput);
+        let owner_id = data.filter((e) => e.owner_id === 1 && e.owner_name.toLowerCase().includes(input.toLowerCase()));
+        setOwnerId(owner_id);
+      } else if (value === "2") {
+        let owner_id = data.filter((e) => e.owner_name.toLowerCase().includes(input.toLowerCase()));
+        setAll(owner_id);
+      } else if (value === "3") {
+        let owner_id = data.filter((e) => e.status === "blocked" && e.owner_name.toLowerCase().includes(input.toLowerCase()));
+        setBlocked(owner_id);
       }
     }
   };
@@ -177,7 +192,7 @@ function Virtualcard() {
               onChange={handleInput}
             />
           </div>
-          <Popover anchorEl={anchorEl} handleClose={handleClose} open={open} data={data} handleSearch={handleSearch} />
+          <Popover anchorEl={anchorEl} handleClose={handleClose} open={open} dropdown={dropdown} data={data} handleSearch={handleSearch} value={value} />
           <Button variant="contained" color="default" className={classes.button} startIcon={<FilterListIcon />} onClick={handleClick}>
             Filter
           </Button>

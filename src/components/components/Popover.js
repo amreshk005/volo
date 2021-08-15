@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Popover from "@material-ui/core/Popover";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -13,6 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import Select from "@material-ui/core/Select";
 import { Grid } from "@material-ui/core";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,16 +68,37 @@ const useStyles = makeStyles((theme) => ({
 function Popovers(props) {
   const id = props.open ? "simple-popover" : undefined;
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     Subscription: false,
     Burner: false,
   });
+  const [select, setSelect] = useState("");
+
+  useEffect(() => {
+    setState({
+      Subscription: false,
+      Burner: false,
+    });
+    setSelect("");
+  }, [props.value]);
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-    props.handleSearch(event.target.checked ? state : "", "checkbox");
+    let updatedData = { ...state, [event.target.name]: event.target.checked };
+    setState(updatedData);
+    props.handleSearch(updatedData, "checkbox");
     console.log(event.target.name);
+    setSelect("");
   };
+
+  const handleSelect = (e) => {
+    setState({
+      Subscription: false,
+      Burner: false,
+    });
+    setSelect(e.target.value);
+    props.handleSearch(e.target.value, "dropdown");
+  };
+
   const { Subscription, Burner } = state;
 
   return (
@@ -115,17 +137,18 @@ function Popovers(props) {
               <FormLabel component="legend">Type</FormLabel>
               <Select
                 native
-                value={state.age}
-                onChange={handleChange}
+                value={select}
+                onChange={handleSelect}
                 inputProps={{
                   name: "age",
                   id: "outlined-age-native-simple",
                 }}
               >
                 <option aria-label="None" value="" />
-                <option value={10}>Ten</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
+
+                {props.dropdown.map((e) => (
+                  <option value={e}>{e}</option>
+                ))}
               </Select>
             </FormControl>
             <Grid container justifyContent="space-between">
@@ -133,7 +156,7 @@ function Popovers(props) {
                 Apply
               </Button>
 
-              <Button variant="contained" color="default" className={classes.button}>
+              <Button variant="contained" color="default" className={classes.button} onClick={props.handleClose}>
                 Clear
               </Button>
             </Grid>
