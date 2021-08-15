@@ -135,26 +135,26 @@ function Virtualcard() {
     } else if (type === "input") {
       if (value === "1") {
         let owner_id = data.filter((e) => e.owner_id === 1 && e.name.toLowerCase().includes(input.toLowerCase()));
-        setOwnerId(owner_id);
+        setSmallOwnerId(owner_id);
       } else if (value === "2") {
         let owner_id = data.filter((e) => e.name.toLowerCase().includes(input.toLowerCase()));
-        setAll(owner_id);
+        setSmallAll(owner_id);
       } else if (value === "3") {
         let owner_id = data.filter((e) => e.status === "blocked" && e.name.toLowerCase().includes(input.toLowerCase()));
-        setBlocked(owner_id);
+        setSmallBlocked(owner_id);
       }
     } else if (type === "checkbox") {
       let getChecked = Object.keys(input).filter((e) => input[e]);
       if (getChecked.length === 1) {
         if (value === "1") {
           let owner_id = data.filter((e) => e.owner_id === 1 && e.card_type.toLowerCase().includes(getChecked[0].toLowerCase()));
-          setOwnerId(owner_id);
+          setSmallOwnerId(owner_id);
         } else if (value === "2") {
           let owner_id = data.filter((e) => e.card_type.toLowerCase().includes(getChecked[0].toLowerCase()));
-          setAll(owner_id);
+          setSmallAll(owner_id);
         } else if (value === "3") {
           let owner_id = data.filter((e) => e.status === "blocked" && e.card_type.toLowerCase().includes(getChecked[0].toLowerCase()));
-          setBlocked(owner_id);
+          setSmallBlocked(owner_id);
         }
       } else {
         setInitialData();
@@ -162,13 +162,13 @@ function Virtualcard() {
     } else if (type === "dropdown") {
       if (value === "1") {
         let owner_id = data.filter((e) => e.owner_id === 1 && e.owner_name.toLowerCase().includes(input.toLowerCase()));
-        setOwnerId(owner_id);
+        setSmallOwnerId(owner_id);
       } else if (value === "2") {
         let owner_id = data.filter((e) => e.owner_name.toLowerCase().includes(input.toLowerCase()));
-        setAll(owner_id);
+        setSmallAll(owner_id);
       } else if (value === "3") {
         let owner_id = data.filter((e) => e.status === "blocked" && e.owner_name.toLowerCase().includes(input.toLowerCase()));
-        setBlocked(owner_id);
+        setSmallBlocked(owner_id);
       }
     }
   };
@@ -180,12 +180,12 @@ function Virtualcard() {
 
   const fetchMoreData = () => {
     setTimeout(() => {
-      setSmallOwnerId(OwnerId);
       setHasmore({
         blocked: false,
         OwnerId: false,
         All: false,
       });
+      setSmallOwnerId(OwnerId);
       setSmallAll(data);
       setSmallBlocked(blocked);
     }, 1500);
