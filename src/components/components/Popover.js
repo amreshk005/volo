@@ -150,11 +150,7 @@ function Popovers(props) {
                 ))}
               </Select>
             </FormControl>
-            <Grid container justifyContent="space-between">
-              <Button variant="contained" color="secondary" className={classes.button}>
-                Apply
-              </Button>
-
+            <Grid container justifyContent="flex-end">
               <Button variant="contained" color="default" className={classes.button} onClick={props.handleClose}>
                 Clear
               </Button>
