@@ -10,11 +10,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Checkbox from "@material-ui/core/Checkbox";
-import Avatar from "@material-ui/core/Avatar";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { green } from "@material-ui/core/colors";
-import LoopIcon from "@material-ui/icons/Loop";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
